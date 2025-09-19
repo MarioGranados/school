@@ -1,3 +1,5 @@
+package Deck;
+
 import java.util.Scanner;
 
 public class Lab3Solution {
