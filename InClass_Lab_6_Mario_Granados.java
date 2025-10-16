@@ -77,11 +77,21 @@ public class InClass_Lab_6_Mario_Granados {
             for (Map.Entry<Name, String> entry : phoneBook.entrySet()) {
                 Name name = entry.getKey();
                 String number = entry.getValue();
+                String upperCase = name.getFirstName().substring(0,1).toUpperCase();
+                String fname = name.getFirstName().substring(1);
 
-                output.println(name.getFirstName().substring(0,1).toUpperCase() + " " + name.getLastName().substring(0,1).toUpperCase() + ", " + number); //Uppercase the first Letter
+                fname = upperCase + fname;
+                upperCase = name.getLastName().substring(0,1).toUpperCase();
+                String lname = name.getLastName().substring(1);
+
+                lname = upperCase + lname;
+
+
+
+                output.println(fname + " " + lname + ", " + number); //Uppercase the first Letter
             }
         }
-
+        
         public String getPhoneNumber(Name personName) {
             //TODO Fix the ","
             Name temp = personName;
