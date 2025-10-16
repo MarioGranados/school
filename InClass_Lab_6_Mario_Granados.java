@@ -32,7 +32,7 @@ public class InClass_Lab_6_Mario_Granados {
             if (obj == null || getClass() != obj.getClass())
                 return false;
             Name name = (Name) obj;
-            return firstName.equals(name.firstName) && lastName.equals(name.lastName);
+            return firstName.equalsIgnoreCase(name.firstName) && lastName.equalsIgnoreCase(name.lastName);
         }
 
         @Override
@@ -62,9 +62,12 @@ public class InClass_Lab_6_Mario_Granados {
 
                 String firstName = parts[0];
                 String lastName = parts[1];
+                if(lastName.contains(",")) {
+                    lastName = lastName.replace(",", ""); // fix the comma implementation
+                }
                 String phoneNumber = parts[2];
 
-                Name name = new Name(firstName, lastName);
+                Name name = new Name(firstName.toLowerCase(), lastName.toLowerCase()); // my approach to the search fix, convert everything to lowercase
                 phoneBook.put(name, phoneNumber);
             }
 
@@ -75,28 +78,36 @@ public class InClass_Lab_6_Mario_Granados {
                 Name name = entry.getKey();
                 String number = entry.getValue();
 
-                output.println(name.getFirstName() + " " + name.getLastName() + ", " + number);
+                output.println(name.getFirstName().substring(0,1).toUpperCase() + " " + name.getLastName().substring(0,1).toUpperCase() + ", " + number); //Uppercase the first Letter
             }
         }
 
         public String getPhoneNumber(Name personName) {
             //TODO Fix the ","
-            return phoneBook.get(personName);
+            Name temp = personName;
+            temp.firstName = temp.firstName.toLowerCase();
+            temp.lastName = temp.lastName.toLowerCase();
+            return phoneBook.get(temp);
         }
 
         public String getPhoneBook() {
-            //TODO Fix This 
-            return this.phoneBook.toString();
+            String book = "";
+            for(HashMap.Entry<Name, String> entry : phoneBook.entrySet()) {
+                book += entry.getKey() + " : " + entry.getValue() + "\n";
+            }
+            return book;
         }
 
         public void addPhoneNumber(Name personName, String phoneNumber) {
             this.phoneBook.put(personName, phoneNumber);
+            System.out.println("You're changes will only save when you hit close!");
         }
 
         public void removePhoneNumber(Name personName) {
-            //TODO fix the ',' error
             this.phoneBook.remove(personName);
+            System.out.println("You're changes will only save when you hit close!");
         }
+
 
     }
 
@@ -132,6 +143,7 @@ public class InClass_Lab_6_Mario_Granados {
                         break;
                     case 2:
                         name = getName();
+                        System.out.println(name);
                         if (name.equals(INPUT_ERROR)) {
                             System.out.println("Error in entering name. Please try again.");
                         } else {
