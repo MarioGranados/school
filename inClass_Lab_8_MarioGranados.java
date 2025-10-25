@@ -35,7 +35,16 @@ public class inClass_Lab_8_MarioGranados {
 
         // Implement put method for in-class assignment
         public void put(Node node) {
+            int key = node.getKey();
+            int hash = hashCode(key);
+            int i = 1;
 
+            while (table[hash] != null && !table[hash].getKey().equals(key)) {
+                hash = doubleHash(key, i);
+                i++;
+            }
+
+            table[hash] = node;
         }
 
         public String toString() {
