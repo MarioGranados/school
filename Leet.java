@@ -1,29 +1,55 @@
-import java.util.HashMap;
+	public class Leet {
+	public static void main(String[] args) {
+		System.out.println("Hello, Leet!");
 
-public class Leet {
+		String str = "Hello, Leet!";
 
-    public static void main(String[] args) {
+		// print characters correctly
+		for (char c : str.toCharArray()) {
+			System.out.print(c);
+		}
+		System.out.println();
 
-        int testCase[] = { 2, 5, 5, 11 };
-        int[] num = twoSum(testCase, 16);
+    
+		// demo of simple sort
+		int[] arr = {5, 2, 9, 1, 5, 6};
+		System.out.print("Before: ");
+		printArray(arr);
 
-        System.out.println(num[0] + " " + num[1]);
+		simpleSort(arr);
 
-    }
+		System.out.print("After:  ");
+		printArray(arr);
+	}
 
-    public static int[] twoSum(int[] nums, int target) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+	// Simple selection sort (ascending)
+	public static void simpleSort(int[] a) {
+		if (a == null) return;
+		int n = a.length;
+		for (int i = 0; i < n - 1; i++) {
+			int minIdx = i;
+			for (int j = i + 1; j < n; j++) {
+				if (a[j] < a[minIdx]) {
+					minIdx = j;
+				}
+			}
+			int tmp = a[i];
+			a[i] = a[minIdx];
+			a[minIdx] = tmp;
+		}
+	}
 
-        for (int i = 0; i < nums.length; i++) {
-            int difference = target - nums[i];
-
-            if (map.containsKey(difference)) {
-                return new int[] { map.get(difference), i };
-            }
-            map.put(nums[i], i);
-        }
-        return null;
-
-    }
-
+	// Utility: print array on one line
+	public static void printArray(int[] a) {
+		if (a == null) {
+			System.out.println("null");
+			return;
+		}
+		System.out.print("[");
+		for (int i = 0; i < a.length; i++) {
+			System.out.print(a[i]);
+			if (i < a.length - 1) System.out.print(", ");
+		}
+		System.out.println("]");
+	}
 }
