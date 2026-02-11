@@ -1,6 +1,6 @@
 package InClass.InClass_3_Mario_Granados;
 
-import java.util.List;
+import java.util.Stack;
 
 public interface DeckInterface {
     public void push(String Card);
@@ -9,8 +9,7 @@ public interface DeckInterface {
 
     public boolean isEmpty();
 
-    public void shuffle();
+    public void shuffle(Stack<String> deck); // added deck to try to do recursive shuffle
 
-    boolean isEmpty(List<String> deck);
 
 }
