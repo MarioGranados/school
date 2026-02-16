@@ -9,7 +9,7 @@ public interface DeckInterface {
 
     public boolean isEmpty();
 
-    public void shuffle(Stack<String> deck); // added deck to try to do recursive shuffle
+    public void shuffle(String[] deck); // added deck to try to do recursive shuffle
 
 
 }
