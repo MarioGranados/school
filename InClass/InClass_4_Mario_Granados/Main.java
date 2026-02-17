@@ -1,4 +1,4 @@
-package InClass.Lab_4_Mario_Granados;
+package InClass.InClass_4_Mario_Granados;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
