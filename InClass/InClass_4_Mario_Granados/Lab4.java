@@ -17,57 +17,58 @@ public class Lab4 {
         return array;
     }
 
-    public static void printArray(int[] array, int unitNumber) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.println("Task with time: " + array[i] + " assignemd to unit " + unitNumber);
+    public static void printTasks(int[] units) {
+        System.out.println("Current units:");
+        for (int k = 0; k < units.length; k++) {
+            System.out.println("Unit " + (k + 1) + ": " + units[k]);
         }
+        System.out.println("--------------------");
     }
 
-    public static void printArray(int[] array) {
-        System.out.println("");
-        for (int i = 0; i < array.length; i++) {
-            System.out.println("Task with time: " + array[i]);
+    // taskIndex is the pointer or where you want to start within the queue, should be zero for the asignment
+    //timeInterval is suppose to simulate the time it takes to complete task, assigmnet says 30
+    public static void queueProcessing(int[] task, int taskIndex, int[] units, int timeInterval) {
+        for (int c = 0; c < timeInterval; c++) {
+
+            if (taskIndex < task.length) {
+                System.out.println("Next task is: " + task[taskIndex]);
+            } else {
+                System.out.println("No tasks left in queue.");
+            }
+
+            for (int j = 0; j < units.length; j++) {
+                if (units[j] > 0) {
+                    units[j]--;
+                    System.out.println();
+
+                }
+                System.out.println("Completing current tasks...");
+                System.out.println("updated tasks");
+            }
+
+            for (int i = 0; i < units.length; i++) {
+                if (units[i] == 0 && taskIndex < task.length) { 
+                    units[i] = task[taskIndex];
+                    System.out.println();
+                    System.out.println("Assigned task " + task[taskIndex] + " to unit " + (i + 1));
+                    taskIndex++; //pointer index
+                    printTasks(units);
+                }
+
+            }
+
         }
     }
 
     public static void main(String[] args) {
 
-        int[] tasks = new int[50];
-        int taskIndex = 0;
-        tasks = buildTasks(tasks);
+        int[] task = new int[50];
+        int numberOfUnits = 8;
+        task = buildTasks(task);
+        int[] units = new int[numberOfUnits];
 
-        int[] queue = new int[3];
-        int pointer = 0;
-
-        for (int i = 0; i < queue.length; i++) {
-            queue[i] = tasks[taskIndex];
-            taskIndex++;
-        }
-        while(true) {
-            if(queue[0] != 0 && queue[1] != 0 && queue[2] != 0) {
-                break;
-            }
-            if(pointer >= 2) {
-                pointer = 0;
-            }
-
-            if(queue[pointer] == 0) {
-                queue[pointer] = tasks[taskIndex];
-                taskIndex++;
-                pointer++;
-                System.out.println("Added new Task");
-
-                printArray(queue, 1);
-            } else {
-                queue[pointer] = queue[pointer] - 1;
-                printArray(queue, 1);
-            }
-
-        }
-
-
-
-        printArray(queue, 1);
+        queueProcessing(task, 0, units, 30);
+        queueProcessing(task, 0, units, 10);
 
     }
 }
