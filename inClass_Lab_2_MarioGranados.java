@@ -8,7 +8,6 @@ public class inClass_Lab_2_MarioGranados {
         Collections.addAll(stack, 'a', 'b', 'c', 'd', 'e');
         System.out.println("Original Stack: " + stack);
 
-
         Stack<Character> tempStack = new Stack<>();
 
         while (!stack.isEmpty()) {

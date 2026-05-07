@@ -1,6 +1,8 @@
+
 public class inClass_Lab_8_MarioGranados {
 
     public static class HashTable {
+
         private Node[] table;
         private int capacity;
 
@@ -13,60 +15,66 @@ public class inClass_Lab_8_MarioGranados {
             return key % capacity;
         }
 
-        public int doubleHash(Integer key, int i) {
-            return (hashCode(key) + Math.abs(13 - key % 13) * i) % capacity;
-        }
-
-        public String get(Integer key) {
-            int hash = hashCode(key);
-            int count = 1;
-
-            while (table[hash] != null && table[hash].getKey() != key) {
-                hash = doubleHash(key, count);
-                count++;
-            }
-
-            if (table[hash] == null) {
-                return null;
-            }
-
-            return table[hash].getData();
-        }
-
-        // Implement put method for in-class assignment
+        //linear probe
         public void put(Node node) {
             int key = node.getKey();
             int hash = hashCode(key);
-            int i = 1;
 
-            while (table[hash] != null && !table[hash].getKey().equals(key)) {
-                hash = doubleHash(key, i);
-                i++;
+            // find next
+            while (table[hash] != null) {
+                hash = (hash + 1) % capacity;
             }
 
             table[hash] = node;
         }
 
+        public String get(Integer key) {
+            int hash = hashCode(key);
+
+            int start = hash;
+
+            while (table[hash] != null) {
+                if (table[hash].getKey().equals(key)) {
+                    return table[hash].getData();
+                }
+
+                hash = (hash + 1) % capacity;
+
+                // full loop check
+                if (hash == start) {
+                    break;
+                }
+            }
+
+            return null;
+        }
+
         public String toString() {
             String s = "[";
-            String color;
 
-            for (int index = 0; index < this.capacity - 1; index++) {
-                color = table[index] == null ? null : table[index].getData();
-                s += color + ", ";
+            for (int i = 0; i < capacity; i++) {
+                if (table[i] == null) {
+                    s += "null";
+                } else {
+                    s += table[i].getData();
+                }
 
-                if (index % 10 == 9) {
+                if (i < capacity - 1) {
+                    s += ", ";
+                }
+
+                if (i % 10 == 9) {
                     s += "\n";
                 }
             }
 
-            color = table[this.capacity - 1] == null ? null : table[this.capacity - 1].getData();
-            s += color + "]";
+            s += "]";
             return s;
         }
     }
 
     static class Node {
+
         Integer key;
         String data;
 
@@ -85,7 +93,9 @@ public class inClass_Lab_8_MarioGranados {
     }
 
     public static class Main {
+
         public static void main(String[] args) {
+
             HashTable table = new HashTable(10);
 
             table.put(new Node(0, "red"));
@@ -97,9 +107,10 @@ public class inClass_Lab_8_MarioGranados {
             table.put(new Node(19, "brown"));
 
             System.out.println(table);
-            System.out.println(table.get(9));
-            System.out.println(table.get(10));
-            System.out.println(table.get(11));
+
+            System.out.println("Get 9: " + table.get(9));
+            System.out.println("Get 10: " + table.get(10));
+            System.out.println("Get 11: " + table.get(11));
         }
     }
 }

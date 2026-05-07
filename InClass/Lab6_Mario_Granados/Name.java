@@ -14,29 +14,34 @@ public class Name {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
     }
 
     @Override
-    public String toString() {
-        return this.firstName + this.lastName;
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Name other = (Name) obj;
+
+        return firstName.equals(other.firstName)
+                && lastName.equals(other.lastName);
     }
 
-    public boolean equals(Object other) {
-        return (this == other);
-    }
-
+    @Override
     public int hashCode() {
-        return (this.firstName + this.lastName).hashCode();
+        return firstName.hashCode() + lastName.hashCode();
     }
-
 }
